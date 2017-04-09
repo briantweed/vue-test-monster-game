@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+		<title>Monster Slayer</title>
+		<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+		<link rel="stylesheet" href="css/foundation.min.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>	
+
+	<body>
+	
+		<div id="app">
+	
+			<section class="row">
+				<div class="small-6 columns">
+					<h1 class="text-center">YOU</h1>
+					<div class="healthbar-holder">
+						<div class="healthbar text-center"
+							:style="{
+								width: playerHealth + '%',
+								backgroundColor: playerColor
+							}">
+							<span v-if="playerHealth">{{ playerHealth }}</span>
+						</div>
+					</div>
+				</div>
+				<div class="small-6 columns">
+					<h1 class="text-center">MONSTER</h1>
+					<div class="healthbar-holder">
+						<div class="healthbar text-center" 
+							:style="{
+								width: monsterHealth + '%',
+								backgroundColor: monsterColor
+							}">
+							<span v-if="monsterHealth">{{ monsterHealth }}</span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="row controls text-center">
+				<div class="small-12 columns" v-if="!gameIsRunning">
+					<button id="start-game" @click="startGame">START NEW GAME</button>
+				</div>
+				<div class="small-12 columns" v-else>
+					<button id="attack" @click="attack">ATTACK</button>
+					<button id="special-attack" :disabled="points<6" title="Special Attacks require 6 points"  @click="specialAttack">SPECIAL ATTACK</button>
+					<button id="heal" :disabled="points<3" title="Healing requires 3 points" @click="heal">HEAL</button>
+					<button id="give-up" @click="giveUp">GIVE UP</button>
+				</div>
+				<div class="small-12 columns text-center" v-if="gameIsRunning">
+					<h4>Points: {{ points }}. Round {{ round }}</h4>
+				</div>
+				<div class="small-12 columns text-center" v-if="!gameIsRunning">
+					<h3>{{ finalMessage }}</h2>
+				</div>
+			</section>
+
+			<section class="row log" v-if="turns.length > 0">
+				<div class="small-12 columns">
+					<ul>
+						<li v-for="turn in turns" :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+							{{ turn.text }}
+						</li>
+					</ul>
+				</div>
+			</section>
+
+		</div>
+
+		<script src="app.js"></script>
+
+	</body>
+	
+</html>
