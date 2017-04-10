@@ -16,10 +16,10 @@
 	<body>
 	
 		<div id="app">
-	
+			<br><br>
 			<section class="row">
 				<div class="small-6 columns">
-					<h1 class="text-center">YOU</h1>
+					<h2 class="text-center">YOU</h2>
 					<div class="healthbar-holder">
 						<div class="healthbar text-center"
 							:style="{
@@ -31,7 +31,7 @@
 					</div>
 				</div>
 				<div class="small-6 columns">
-					<h1 class="text-center">MONSTER</h1>
+					<h2 class="text-center">MONSTER</h2>
 					<div class="healthbar-holder">
 						<div class="healthbar text-center" 
 							:style="{
@@ -54,12 +54,10 @@
 					<button id="heal" :disabled="points<3" title="Healing requires 3 points" @click="heal">HEAL</button>
 					<button id="give-up" @click="giveUp">GIVE UP</button>
 				</div>
-				<div class="small-12 columns text-center" v-if="gameIsRunning">
-					<h4>Points: {{ points }}. Round {{ round }}</h4>
+				<div class="small-12 columns" v-if="gameIsRunning">
+					<h4>Points: {{ points }}</h4>
 				</div>
-				<div class="small-12 columns text-center" v-if="!gameIsRunning">
-					<h3>{{ finalMessage }}</h2>
-				</div>
+				<div class="small-12 columns" v-if="!gameIsRunning" v-html="finalMessage"></div>
 			</section>
 
 			<section class="row log" v-if="turns.length > 0">
